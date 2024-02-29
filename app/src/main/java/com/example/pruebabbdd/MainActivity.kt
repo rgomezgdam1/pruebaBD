@@ -16,9 +16,10 @@ import java.sql.SQLException
 
 class MainActivity : AppCompatActivity() {
 
-    private val jdbcUrl = "jdbc:mysql://appacc-adqydk60.db.tb-hosting.com"
-    private val username = "appacc_adqydk60"
-    private val password = "Velasco9!"
+    var jdbcUrl = "jdbc:mysql://lhcp3332.webapps.net:3306/rv5az9yb_patata?useSSL=false"
+    var jdbcUrl2 = "jdbc:mysql://lhcp3332.webapps.net:3306/rv5az9yb_patata"
+    var username = "rv5az9yb_bbddadmin"
+    var password = "R1732004ldl"
     var conexion: Connection? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
             // Establecemos la conexión con la base de datos
             conexion = DriverManager.getConnection(
-                jdbcUrl,
+                jdbcUrl2,
                 username,
                 password
             )
