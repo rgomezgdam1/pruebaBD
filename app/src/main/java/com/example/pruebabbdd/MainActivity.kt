@@ -5,21 +5,24 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.sql.Connection
 import java.sql.DriverManager
+import androidx.lifecycle.lifecycleScope
+
 import java.sql.SQLException
 
 
 class MainActivity : AppCompatActivity() {
 
-    var jdbcUrl = "jdbc:mysql://lhcp3332.webapps.net:3306/rv5az9yb_patata?useSSL=false"
+    var jdbcUrl = "jdbc:mysql://sql8.freesqldatabase.com:3306/sql8687684"
     var jdbcUrl2 = "jdbc:mysql://lhcp3332.webapps.net:3306/rv5az9yb_patata"
-    var username = "rv5az9yb_bbddadmin"
-    var password = "R1732004ldl"
+    var username = "sql8687684"
+    var password = "kfuFPeQzY9"
     var conexion: Connection? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,27 +36,38 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun bbdd(view: View){
+    fun bbdd(view: View) {
         showToast("Botón pulsado")
-        Log.i("Boton","Botón pulsado")
-        conectar()
-    }
-    fun conectar() {
-        // Configuramos la conexión con la base de datos
-        try {
-            // Cargamos el driver de MySQL
-            Class.forName("com.mysql.cj.jdbc.Driver")
+        Log.i("Boton", "Botón pulsado")
 
-            // Establecemos la conexión con la base de datos
-            conexion = DriverManager.getConnection(
-                jdbcUrl2,
-                username,
-                password
-            )
-            Log.i("conexion","Se ha conectado a la bbdd")
-
-        } catch (e: Exception) {
-            println(e)
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                conectar()
+            }
         }
+    }
+
+    fun conectar() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver")
+            conexion = DriverManager.getConnection(jdbcUrl, username, password)
+            Log.i("conexion", "Se ha conectado a la bbdd")
+        } catch (e: ClassNotFoundException) {
+            Log.e("Error", "Error al cargar el driver de MySQL: ${e.message}")
+            showToast("Error al cargar el driver de MySQL")
+        } catch (e: SQLException) {
+            Log.e("Error", "Error al conectar con la base de datos: ${e.message}")
+            showToast("Error al conectar con la base de datos")
+        } catch (e: Exception) {
+            Log.e("Error", "Error desconocido: ${e.message}")
+            showToast("Error desconocido")
+        }finally {
+            try {
+                conexion?.close()
+                Log.i("conexion", "Conexión cerrada")
+            } catch (e: SQLException) {
+                Log.e("Error", "Error al cerrar la conexión: ${e.message}")
+            }
+    }
     }
 }

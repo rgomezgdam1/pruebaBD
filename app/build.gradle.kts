@@ -37,15 +37,15 @@ android {
 
 dependencies {
 
+    implementation(files("libs/mysql-connector-java-5.1.49.jar"))
     var ktor_version = "2.3.8"
     implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-xml:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-cbor:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-protobuf:$ktor_version")
-    implementation("mysql:mysql-connector-java:8.0.33")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    implementation("org.mariadb.jdbc:mariadb-java-client:2.7.3")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
