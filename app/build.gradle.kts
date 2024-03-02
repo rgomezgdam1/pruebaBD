@@ -7,6 +7,10 @@ android {
     namespace = "com.example.pruebabbdd"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.example.pruebabbdd"
         minSdk = 28
@@ -39,6 +43,10 @@ dependencies {
 
     implementation(files("libs/mysql-connector-java-5.1.49.jar"))
     var ktor_version = "2.3.8"
+
+    implementation("androidx.activity:activity-ktx:1.8.2")
+    implementation("commons-net:commons-net:3.6")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-xml:$ktor_version")
